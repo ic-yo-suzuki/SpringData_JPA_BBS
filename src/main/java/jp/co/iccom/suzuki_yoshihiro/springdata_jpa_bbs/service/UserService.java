@@ -26,9 +26,32 @@ public class UserService {
 			if(em.getTransaction().isActive()){
 				em.getTransaction().rollback();
 			}
+		}finally{
+			em.clear();
+			em.close();
 		}
 
 		return userList;
+	}
+
+	public UserEntity getUser(int id) {
+		EntityManager em = getEntityManager();
+		UserEntity user = null;
+		try{
+			em.getTransaction().begin();
+			user = (UserEntity) em.createNamedQuery("UserEntity.findById")
+					.setParameter("id", id)
+					.getSingleResult();
+			em.getTransaction().commit();
+		}catch(Exception e){
+			if(em.getTransaction().isActive()){
+				em.getTransaction().rollback();
+			}
+		}finally{
+			em.clear();
+		}
+
+		return user;
 	}
 
 }

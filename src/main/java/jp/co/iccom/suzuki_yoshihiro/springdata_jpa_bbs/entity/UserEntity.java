@@ -2,25 +2,35 @@ package jp.co.iccom.suzuki_yoshihiro.springdata_jpa_bbs.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import lombok.Data;
 
 
 /**
  * The persistent class for the users database table.
  *
  */
+@Data
 @Entity
 @Table(name="users")
-@NamedQuery(name="UserEntity.findAll", query="SELECT u FROM UserEntity u")
+@NamedQueries({
+	@NamedQuery(name="UserEntity.findAll", query="SELECT u FROM UserEntity u"),
+	@NamedQuery(name="UserEntity.findById", query = "SELECT u FROM UserEntity u WHERE u.id = :id")
+})
+
 public class UserEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -50,71 +60,51 @@ public class UserEntity implements Serializable {
 	@JoinColumn(name="department_id")
 	private DepartmentEntity department;
 
+	//bi-directional many-to-one association to PostEntity
+	@OneToMany(mappedBy="user")
+	private List<PostEntity> posts;
+
+	//bi-directional many-to-one association to CommentEntity
+	@OneToMany(mappedBy="user")
+	private List<CommentEntity> comments;
+
 	public UserEntity() {
 	}
 
-	public int getId() {
-		return this.id;
+	public PostEntity addPost(PostEntity post) {
+		getPosts().add(post);
+		post.setUser(this);
+
+		return post;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public PostEntity removePost(PostEntity post) {
+		getPosts().remove(post);
+		post.setUser(null);
+
+		return post;
 	}
 
-	public Date getLastLoginDate() {
-		return this.lastLoginDate;
+	public List<CommentEntity> getComments() {
+		return this.comments;
 	}
 
-	public void setLastLoginDate(Date lastLoginDate) {
-		this.lastLoginDate = lastLoginDate;
+	public void setComments(List<CommentEntity> comments) {
+		this.comments = comments;
 	}
 
-	public String getLoginId() {
-		return this.loginId;
+	public CommentEntity addComment(CommentEntity comment) {
+		getComments().add(comment);
+		comment.setUser(this);
+
+		return comment;
 	}
 
-	public void setLoginId(String loginId) {
-		this.loginId = loginId;
-	}
+	public CommentEntity removeComment(CommentEntity comment) {
+		getComments().remove(comment);
+		comment.setUser(null);
 
-	public String getName() {
-		return this.name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getPassword() {
-		return this.password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public byte getStatus() {
-		return this.status;
-	}
-
-	public void setStatus(byte status) {
-		this.status = status;
-	}
-
-	public BranchEntity getBranch() {
-		return this.branch;
-	}
-
-	public void setBranch(BranchEntity branch) {
-		this.branch = branch;
-	}
-
-	public DepartmentEntity getDepartment() {
-		return this.department;
-	}
-
-	public void setDepartment(DepartmentEntity department) {
-		this.department = department;
+		return comment;
 	}
 
 }

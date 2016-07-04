@@ -4,6 +4,8 @@
 		<class>jp.co.iccom.suzuki_yoshihiro.springdata_jpa_bbs.entity.BranchEntity</class>
 		<class>jp.co.iccom.suzuki_yoshihiro.springdata_jpa_bbs.entity.DepartmentEntity</class>
 		<class>jp.co.iccom.suzuki_yoshihiro.springdata_jpa_bbs.entity.UserEntity</class>
+		<class>jp.co.iccom.suzuki_yoshihiro.springdata_jpa_bbs.entity.CommentEntity</class>
+		<class>jp.co.iccom.suzuki_yoshihiro.springdata_jpa_bbs.entity.PostEntity</class>
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/bbs"/>
 			<property name="javax.persistence.jdbc.user" value="java"/>

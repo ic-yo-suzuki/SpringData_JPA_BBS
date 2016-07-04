@@ -1,14 +1,22 @@
 package jp.co.iccom.suzuki_yoshihiro.springdata_jpa_bbs.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import lombok.Data;
 
 
 /**
  * The persistent class for the branches database table.
- * 
+ *
  */
+@Data
 @Entity
 @Table(name="branches")
 @NamedQuery(name="BranchEntity.findAll", query="SELECT b FROM BranchEntity b")
@@ -20,36 +28,13 @@ public class BranchEntity implements Serializable {
 
 	private String name;
 
-	//bi-directional many-to-one association to User
+	//bi-directional many-to-one association to UserEntity
 	@OneToMany(mappedBy="branch")
 	private List<UserEntity> users;
 
 	public BranchEntity() {
 	}
 
-	public int getId() {
-		return this.id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return this.name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public List<UserEntity> getUsers() {
-		return this.users;
-	}
-
-	public void setUsers(List<UserEntity> users) {
-		this.users = users;
-	}
 
 	public UserEntity addUser(UserEntity user) {
 		getUsers().add(user);

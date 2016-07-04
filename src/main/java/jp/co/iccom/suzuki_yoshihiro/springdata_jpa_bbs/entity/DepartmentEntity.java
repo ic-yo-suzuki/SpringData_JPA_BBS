@@ -1,14 +1,22 @@
 package jp.co.iccom.suzuki_yoshihiro.springdata_jpa_bbs.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import lombok.Data;
 
 
 /**
  * The persistent class for the departments database table.
- * 
+ *
  */
+@Data
 @Entity
 @Table(name="departments")
 @NamedQuery(name="DepartmentEntity.findAll", query="SELECT d FROM DepartmentEntity d")
@@ -27,29 +35,6 @@ public class DepartmentEntity implements Serializable {
 	public DepartmentEntity() {
 	}
 
-	public int getId() {
-		return this.id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return this.name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public List<UserEntity> getUsers() {
-		return this.users;
-	}
-
-	public void setUsers(List<UserEntity> users) {
-		this.users = users;
-	}
 
 	public UserEntity addUser(UserEntity user) {
 		getUsers().add(user);

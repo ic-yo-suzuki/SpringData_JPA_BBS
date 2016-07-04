@@ -8,15 +8,16 @@
 		<meta charset="utf-8">
 		<title>Welcome</title>
 	</head>
+	<c:set var="contextPath" value="${pageContext.request.contextPath }"></c:set>
 	<body>
 		<h2>${message}</h2>
 
 		<c:if test="${not empty userInfoList }">
 			<c:forEach var="userInfo" items="${userInfoList }"><br>
-				ID：<c:out value="${userInfo.id }" /><br>
+				ID　　　　　：<a href="${contextPath}/user/id/<c:out value="${userInfo.id }" />/"><c:out value="${userInfo.id }" /></a><br>
 				ログインID：<c:out value="${userInfo.loginId }" /><br>
-				名前：<c:out value="${userInfo.name }" /><br>
-				所属部署：<c:out value="${userInfo.branch.name }" /> <c:out value="${userInfo.department.name }" /><br>
+				名前　　　 ：<c:out value="${userInfo.name }" /><br>
+				所属　　　 ：<c:out value="${userInfo.branch.name }" /> <c:out value="${userInfo.department.name }" /><br>
 			</c:forEach>
 
 		</c:if>
