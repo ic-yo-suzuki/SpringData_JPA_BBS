@@ -19,6 +19,7 @@
 
 	<context:component-scan
 		base-package="jp.co.iccom.suzuki_yoshihiro.springdata_jpa_bbs" />
+	<!-- この部分は立ち上げたプロジェクトのパッケージ名を設定する -->
 
 	<bean
 		class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
